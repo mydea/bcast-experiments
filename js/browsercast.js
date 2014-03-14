@@ -100,8 +100,8 @@
         };
     }
 
-    function onCueClick(cue, popcorn) {
-       popcorn.currentTime(cue.time);
+    function onCueClick(cue, popcorn) {	
+        popcorn.currentTime(cue.time);
     }
 
     // Use the audio timeupdates to drive existing slides.
@@ -113,8 +113,11 @@
         // Look for the browsercast audio element.
         audio = document.getElementById('browsercast-audio');
         markers = document.getElementById('markers');
-
+				
         popcorn = Popcorn(audio);
+				
+        // Set slides-container height to viewport-height - controls-height
+        document.querySelector(".reveal").style.height = (window.innerHeight - document.getElementById("browsercast").offsetHeight) + "px";
 
         var i = 0;
         slideCues.forEach(function (cue) {
@@ -137,6 +140,28 @@
             });
         });
         setCueLength();
+				
+        // Make cues slideable on touch devices
+        markers.ontouchmove = function(event) {
+            var el, slideIndex, cue, allCueDivs;
+
+            // Prevent scrolling and event abortion
+            event.preventDefault();
+            event.stopPropagation();
+
+            // Get cue under the touch
+            el = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+            // If the cue is already active or is not a cue, do nothing
+            if(el.classList.contains("active") || !el.classList.contains("cue")) return;
+
+            // Get the slide index
+            allCueDivs = document.querySelectorAll("#markers > .cue");
+            slideIndex = Array.prototype.indexOf.call(allCueDivs, el);
+
+            // Get the cue
+            cue = slideCues[slideIndex];
+            return onCueClick(cue, popcorn);
+        };
 
         window.onresize = setCueLength;
 

@@ -14,11 +14,23 @@
     <link rel="stylesheet" href="../css/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="../css/browsercast.css">
 
+    <script src="../lib/js/head.full.min.js"></script>
+		
     <!--[if lt IE 9]>
     <script src="../lib/js/html5shiv.js"></script>
     <![endif]-->
   </head>
   <body>
+		
+    <div id="browsercast">
+      <audio controls id="browsercast-audio">
+        <source src="test-02.mp3" type="audio/mp3">
+        <source src="test-02.ogg" type="audio/ogg">
+          Your browser does not support the audio element.
+      </audio>
+      <div id="markers"></div>
+    </div>
+		
     <div class="reveal">
       <div class="slides">
 
@@ -158,15 +170,6 @@
       </div>
     </div>
     
-    <div id="browsercast">
-      <audio controls id="browsercast-audio">
-        <source src="test-02.ogg" type="audio/ogg">
-          Your browser does not support the audio element.
-      </audio>
-      <div id="markers"></div>
-    </div>
-    
-    <script src="../lib/js/head.min.js"></script>
     <script src="../js/reveal.min.js"></script>
     
     <script>
